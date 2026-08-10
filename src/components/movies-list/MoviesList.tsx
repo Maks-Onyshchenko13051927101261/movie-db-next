@@ -6,10 +6,16 @@ import MoviesListCards from "./MoviesListCards";
 
 type MoviesListProps = {
     page: number;
+    query?: string;
+    genre?: string;
 };
 
-const MoviesList = async ({ page }: MoviesListProps) => {
-    const movies = await movieService.getAll(page);
+const MoviesList = async ({ page, query, genre }: MoviesListProps) => {
+    const movies = await movieService.getMovies({
+        page,
+        query,
+        genre,
+    });
 
     return <MoviesListCards movies={movies.results} />;
 };
