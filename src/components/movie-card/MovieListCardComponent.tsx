@@ -5,14 +5,12 @@ import { imageUrl } from "@/services/api.config";
 import Image from "next/image";
 
 type MoviePropsType = {
-  movie: IMovieModel;
+    movie: IMovieModel;
 };
 
-export const MovieCardComponent = ({movie}: MoviePropsType) => {
-    const {title, overview,poster_path, vote_average, genre_ids} = movie;
-    const posterUrl = poster_path 
-        ? `${imageUrl}${poster_path}` 
-        : "/images/no-poster.png";
+export const MovieListCardComponent = ({ movie }: MoviePropsType) => {
+    const { title, overview, poster_path, vote_average, genre_ids } = movie;
+    const posterUrl = poster_path ? `${imageUrl}${poster_path}` : "/images/no-poster.png";
     return (
         <div>
             <h2>{title}</h2>
