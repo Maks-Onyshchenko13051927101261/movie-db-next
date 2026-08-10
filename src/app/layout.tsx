@@ -1,3 +1,4 @@
+import { Header } from "@/components/header/Header";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -17,10 +18,18 @@ export const metadata: Metadata = {
     description: "Movie catalog powered by TMDB",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
-        <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-            <body>{children}</body>
+        <html lang="uk" className={`${geistSans.variable} ${geistMono.variable}`}>
+            <body>
+                <Header />
+
+                <main>{children}</main>
+            </body>
         </html>
     );
 }
