@@ -1,13 +1,13 @@
 // A grid layout component that renders a collection of movie cards, and handles loading and error states
 
 import { IMovieModel } from "@/models/IMovieModel";
-import MovieListCardComponent from "../movie-card/MovieListCardComponent";
+import MovieListCard from "../movie-card/MovieListCard";
 
 type Props = {
     movies: IMovieModel[];
 };
 
-const MoviesListCardsComponent = ({ movies }: Props) => {
+const MoviesListCards = ({ movies }: Props) => {
     if (!movies || movies.length === 0) {
         return <p>No movies found.</p>;
     }
@@ -15,10 +15,10 @@ const MoviesListCardsComponent = ({ movies }: Props) => {
     return (
         <div>
             {movies.map((movie) => (
-                <MovieListCardComponent key={movie.id} movie={movie} />
+                <MovieListCard key={movie.id} movie={movie} />
             ))}
         </div>
     );
 };
 
-export default MoviesListCardsComponent;
+export default MoviesListCards;
