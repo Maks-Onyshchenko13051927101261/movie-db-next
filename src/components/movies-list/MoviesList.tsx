@@ -17,7 +17,11 @@ const MoviesList = async ({ page, query, genre }: MoviesListProps) => {
         genre,
     });
 
-    return <MoviesListCards movies={movies.results} />;
+    return (
+        <>
+            <MoviesListCards movies={movies.results} />
+        </>
+    );
 };
 
 export default MoviesList;
