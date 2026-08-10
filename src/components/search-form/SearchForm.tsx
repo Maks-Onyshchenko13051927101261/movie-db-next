@@ -15,7 +15,7 @@ export const SearchForm = () => {
     const searchParams = useSearchParams();
     const currentQuery = searchParams.get("query") || "";
 
-    const { register, handleSubmit, reset } = useForm<SearchFormData>({
+    const { register, handleSubmit } = useForm<SearchFormData>({
         defaultValues: {
             title: currentQuery,
         },
