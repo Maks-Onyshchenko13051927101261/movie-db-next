@@ -2,7 +2,7 @@
 // It implements a fixed aspect ratio and a subtle hover "zoom"
 // effect to enhance the browsing experience.
 
-import { imageUrl } from "@/services/api.config";
+import { imageUrl } from "@/services/api.service";
 import Image from "next/image";
 
 type PosterPropsType = {

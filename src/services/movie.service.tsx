@@ -3,7 +3,7 @@
 import { IGenre } from "@/models/IGenreModel";
 import { IMovieModel } from "@/models/IMovieModel";
 import { IResponseModel } from "@/models/IResponseModel";
-import { request } from "./api.config";
+import { request } from "./api.service";
 
 export const movieService = {
     getAll: async (page: number): Promise<IResponseModel> => {
