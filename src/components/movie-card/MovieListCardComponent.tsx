@@ -8,7 +8,7 @@ type MoviePropsType = {
     movie: IMovieModel;
 };
 
-export const MovieListCardComponent = ({ movie }: MoviePropsType) => {
+const MovieListCardComponent = ({ movie }: MoviePropsType) => {
     const { title, overview, poster_path, vote_average, genre_ids } = movie;
     const posterUrl = poster_path ? `${imageUrl}${poster_path}` : "/images/no-poster.png";
     return (
@@ -21,3 +21,5 @@ export const MovieListCardComponent = ({ movie }: MoviePropsType) => {
         </div>
     );
 };
+
+export default MovieListCardComponent;

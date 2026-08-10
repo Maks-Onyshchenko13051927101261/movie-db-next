@@ -5,7 +5,7 @@ import { IMovieModel } from "@/models/IMovieModel";
 import { IResponseModel } from "@/models/IResponseModel";
 import { request } from "./api.config";
 
-const movieService = {
+export const movieService = {
     getAll: async (page: number): Promise<IResponseModel> => {
         return await request<IResponseModel>(`/discover/movie?page=${page}`);
     },
@@ -21,7 +21,5 @@ const movieService = {
     },
     getById: async (id: string | number): Promise<IMovieModel> => {
         return await request<IMovieModel>(`/movie/${id}`);
-    }
+    },
 };
-
-export default movieService;

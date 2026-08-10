@@ -6,15 +6,15 @@ const baseUrl = process.env.TMDB_BASE_URL;
 const imageUrl = process.env.TMDB_IMAGE_URL;
 
 const axiosInstance = axios.create({
-  baseURL: baseUrl,
-  headers: {
-    Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`
-  },
+    baseURL: baseUrl,
+    headers: {
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
 });
 
-const request = async <T ,>(url: string): Promise<T> => {
-  const { data } = await axiosInstance.get<T>(url);
-  return data;
+export const request = async <T,>(url: string): Promise<T> => {
+    const { data } = await axiosInstance.get<T>(url);
+    return data;
 };
 
-export { imageUrl, request };
+export { imageUrl };
