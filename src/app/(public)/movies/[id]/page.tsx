@@ -1,35 +1,40 @@
-import MovieListCard from "@/components/movie-card/MovieListCard";
+import MovieDetails from "@/components/movie-details/MovieDetails";
 import { movieService } from "@/services/movie.service";
-import { FC } from "react";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-type Props = { params: Promise<{ id: string }> };
+type Props = {
+    params: Promise<{ id: string }>;
+};
 
-export const generateMetadata = async ({ params }: Props) => {
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
     const { id } = await params;
     const movie = await movieService.getById(id).catch(() => null);
 
     if (!movie) {
         return {
-            title: "Movie Not Found",
+            title: "Movie Not Found | MovieStorm",
         };
     }
+
     return {
-        title: movie.title,
+        title: `${movie.title} | MovieStorm`,
+        description: movie.overview || `Watch details for ${movie.title}`,
     };
 };
 
-const MoviePage: FC<Props> = async ({ params }) => {
+const MoviePage = async ({ params }: Props) => {
     const { id } = await params;
     const movie = await movieService.getById(id).catch(() => null);
 
     if (!movie) {
-        return <div>Movie not found</div>;
+        notFound();
     }
 
     return (
-        <div>
-            <MovieListCard movie={movie} />
-        </div>
+        <main className="min-h-[calc(100vh-80px)] bg-white dark:bg-gray-950 transition-colors">
+            <MovieDetails movie={movie} />
+        </main>
     );
 };
 

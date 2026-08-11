@@ -6,11 +6,12 @@
 import { MouseEvent, useState } from "react";
 
 import { FAVORITES_UPDATED_EVENT } from "@/constants/events";
+import { IMovieDetailsModel } from "@/models/IMovieDetailsModel";
 import { IMovieModel } from "@/models/IMovieModel";
 import { localService } from "@/services/local.service";
 
 type FavoriteButtonProps = {
-    movie: IMovieModel;
+    movie: IMovieModel | IMovieDetailsModel;
 };
 
 const FavoriteButton = ({ movie }: FavoriteButtonProps) => {

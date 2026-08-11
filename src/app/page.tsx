@@ -11,5 +11,10 @@ type HomePageProps = {
 export default async function HomePage({ searchParams }: HomePageProps) {
     const params = await searchParams;
 
-    return <MoviesList page={Number(params.page ?? 1)} query={params.query} genre={params.genre} />;
+    return (
+        <main>
+            <MoviesList page={Number(params.page ?? 1)} query={params.query} genre={params.genre} />
+            ;
+        </main>
+    );
 }

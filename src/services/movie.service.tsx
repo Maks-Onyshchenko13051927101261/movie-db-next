@@ -2,7 +2,7 @@
 // It abstracts all raw API endpoints into a clean, method-based interface.
 
 import { IGenre } from "@/models/IGenreModel";
-import { IMovieModel } from "@/models/IMovieModel";
+import { IMovieDetailsModel } from "@/models/IMovieDetailsModel";
 import { IResponseModel } from "@/models/IResponseModel";
 import { request } from "./api.service";
 
@@ -33,8 +33,8 @@ export const movieService = {
         return data.genres;
     },
 
-    getById: async (id: string | number): Promise<IMovieModel> => {
-        return request<IMovieModel>(`/movie/${id}`);
+    getById: async (id: string | number): Promise<IMovieDetailsModel> => {
+        return request<IMovieDetailsModel>(`/movie/${id}`);
     },
 
     // Single entry point for the main page
