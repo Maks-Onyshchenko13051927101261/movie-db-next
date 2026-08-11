@@ -7,6 +7,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 type PaginationProps = {
     totalPages?: number;
+    currentPage?: number;
+    query?: string;
+    genre?: string;
 };
 
 export const Pagination = ({ totalPages = 500 }: PaginationProps) => {
