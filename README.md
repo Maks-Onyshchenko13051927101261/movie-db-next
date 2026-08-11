@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🎬 MovieStorm — Modern Movie Catalog App
+MovieStorm is a high-performance, responsive movie catalog web application built with Next.js 15+ (App Router), TypeScript, and Tailwind CSS v4. The application seamlessly interfaces with The Movie Database (TMDB) API to let users browse popular movies, search by keywords, filter by genres, view detailed movie metrics, and manage custom favorites list.
 
-## Getting Started
+🚀 Key Features
+⚡ Server-First Architecture (App Router): Core catalog grid, individual movie pages, and genres navigation are rendered on the server as Server Components, yielding near-instant First Contentful Paint (FCP) and rich SEO.
 
-First, run the development server:
+🔍 Deep-Linked Search & Pagination: Query strings (?query=...) and active pagination (?page=...) are synchronized directly with URL parameters via next/navigation, allowing shareable search results and preserving navigation context.
 
-```bash
+❤️ Interactive Favorites Management: Client-side favorite movies management backed by localStorage and synchronized across browser tabs using native storage events.
+
+🏷️ Dynamic Genres Filtering: Dynamic navigation bar allowing users to filter movies by official TMDB genres with active state indicators.
+
+👤 Profile Management: Client-side profile updating with real-time validation powered by React Hook Form and Joi.
+
+🌙 Dark / Light Theme: Persistent dark mode toggling using Tailwind v4 utility classes and local state.
+
+🎨 Modern UI/UX: Fully responsive layout designed with adaptive grid systems, backdrop blur effects, smooth scroll behavior, and image placeholder optimization.
+
+🛠️ Tech Stack & Architecture
+Framework: Next.js (App Router)
+
+Language: TypeScript
+
+Styling: Tailwind CSS v4 with @tailwindcss/postcss
+
+Form Handling & Validation: React Hook Form, Joi, @hookform/resolvers
+
+Data Source: TMDB API v3
+
+Icons & Visuals: Native Unicode & Next.js Image Optimization
+
+📐 Project Structure & Optimization
+Plaintext
+├── app/
+│ ├── layout.tsx # Root layout with global metadata & theme setup
+│ ├── page.tsx # Main server page (Movie Grid, Search & Pagination)
+│ ├── movies/
+│ │ ├── [id]/
+│ │ │ └── page.tsx # Dynamic server movie detail page with metadata
+│ │ └── favorites/
+│ │ └── page.tsx # Client page for user favorites list
+├── src/
+│ ├── components/
+│ │ ├── header/ # Server Header housing client interactive islands
+│ │ │ ├── Header.tsx # Server Component
+│ │ │ ├── ThemeToggle.tsx # Client Component Island
+│ │ │ └── FavoritesBadge.tsx # Client Component Island
+│ │ ├── movies-list/ # Grid, Cards & Rating components
+│ │ │ ├── MoviesListCards.tsx
+│ │ │ ├── MovieListCard.tsx
+│ │ │ └── FavoriteButton.tsx # Client Component Island
+│ │ ├── search/ # Client Search form with URL sync
+│ │ ├── user-info/ # Client Profile manager (RHF + Joi)
+│ │ ├── genres-list/ # Genres scrollbar navigation
+│ │ └── pagination/ # Smooth scrolling pagination control
+│ ├── services/
+│ │ ├── movie.service.ts # TMDB API service layer
+│ │ └── local.service.ts # LocalStorage abstraction wrapper
+│ ├── models/ # TypeScript interfaces & types
+│ └── validator/ # Joi validation schemas
+⚙️ Getting Started
+
+1. Prerequisites
+   Node.js: v18.x or higher
+
+Package Manager: npm / yarn / pnpm
+
+2. Environment Setup
+   Create a .env.local file in the root directory and insert your TMDB API Bearer Token / API Key:
+
+Code snippet
+MDB_TOKEN=your_tmdb_bearer_token_here 3. Installation
+Clone the repository and install dependencies:
+
+Bash
+git clone https://github.com/your-username/moviestorm.git
+cd moviestorm
+npm install 4. Development Server
+Run the local development server:
+
+Bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 in your browser to view the application.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Production Build
+   Verify standard TypeScript checks and build for production:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Bash
+npm run build
+npm run start
+📝 License
+This project was built for educational purposes as part of the Web Development assignment curriculum.

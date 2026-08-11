@@ -1,3 +1,5 @@
+// descriptions
+
 import MovieDetails from "@/components/movie-details/MovieDetails";
 import { movieService } from "@/services/movie.service";
 import { Metadata } from "next";

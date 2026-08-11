@@ -30,7 +30,7 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
     const backdropUrl = backdrop_path ? `${backdropBaseUrl}${backdrop_path}` : null;
 
     return (
-        <div className="relative min-h-[calc(100vh-80px)] bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden">
+        <article className="relative min-h-[calc(100vh-80px)] bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden">
             {backdropUrl && (
                 <div className="absolute inset-0 z-0 h-[500px] w-full overflow-hidden opacity-20 dark:opacity-30">
                     <Image
@@ -110,7 +110,7 @@ const MovieDetails = ({ movie }: MovieDetailsProps) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </article>
     );
 };
 

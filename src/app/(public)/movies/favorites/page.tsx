@@ -1,4 +1,4 @@
-// src/app/(public)/favorites/page.tsx
+// descriptions
 
 import FavoritesMovies from "@/components/favorites-movies/FavoritesMovies";
 import { Metadata } from "next";
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function FavoritesPage() {
     return (
-        <main>
+        <main className="min-h-[calc(100vh-80px)] bg-white dark:bg-gray-950 transition-colors">
             <FavoritesMovies />
         </main>
     );
