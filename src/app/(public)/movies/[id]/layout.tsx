@@ -1,4 +1,4 @@
-// // app/(public)/movies/[id]/layout.tsx
+import { Metadata } from "next";
 
 // import { movieService } from "@/services/movie.service";
 // import type { Metadata } from "next";
@@ -29,3 +29,12 @@
 //         },
 //     };
 // }
+export const metadata: Metadata = {
+    title: "Movie Details",
+    description: "View detailed information about this movie.",
+};
+type Props = { children: React.ReactNode };
+const MovieLayout = ({ children }: Props) => {
+    return <div>{children}</div>;
+};
+export default MovieLayout;
