@@ -6,6 +6,7 @@
 
 import { Header } from "@/components/header/Header";
 import { ThemeInitializer } from "@/components/header/ThemeInitializer";
+import { movieService } from "@/services/movie.service";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -25,16 +26,17 @@ export const metadata: Metadata = {
     description: "Movie catalog powered by TMDB",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const genres = await movieService.getGenres().catch(() => []);
     return (
         <html lang="uk" className={`${geistSans.variable} ${geistMono.variable}`}>
             <body>
                 <ThemeInitializer />
-                <Header />
+                <Header genres={genres} />
                 <main>{children}</main>
             </body>
         </html>
