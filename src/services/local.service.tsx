@@ -59,9 +59,4 @@ export const localService = {
         }
         window.dispatchEvent(new Event(THEME_UPDATED_EVENT));
     },
-
-    clearAll: () => {
-        localStorage.removeItem(USER_KEY);
-        localStorage.removeItem(FAVORITES_KEY);
-    },
 };

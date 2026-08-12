@@ -1,3 +1,9 @@
+// @file Root Layout Component
+// @module app/layout
+// Master layout wrapper for the entire application structure.
+// Configures global typography, dark/light theme providers, persistent application headers,
+// and base CSS styles across all routes.
+
 import { Header } from "@/components/header/Header";
 import { ThemeInitializer } from "@/components/header/ThemeInitializer";
 import type { Metadata } from "next";

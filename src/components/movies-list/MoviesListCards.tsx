@@ -27,20 +27,20 @@ export const MoviesListCards = ({ movies, error }: Props) => {
             <div className="flex flex-col items-center justify-center min-h-[350px] gap-2 text-center px-4">
                 <span className="text-4xl opacity-60">🎬</span>
                 <p className="text-gray-500 dark:text-gray-400 font-medium text-base">
-                    Нічого не знайдено.
+                    No movies found.
                 </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500"></p>
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 py-6 w-full">
-            {movies.map((movie) => (
-                <div key={movie.id} className="flex justify-center w-full">
-                    <MovieListCard movie={movie} />
-                </div>
-            ))}
+        /* max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 — тримає безпечні поля зліва і справа */
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                {movies.map((movie) => (
+                    <MovieListCard key={movie.id} movie={movie} />
+                ))}
+            </div>
         </div>
     );
 };

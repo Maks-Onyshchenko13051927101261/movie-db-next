@@ -1,5 +1,5 @@
-// Client component for toggling dark/light theme status.
 "use client";
+// Client component for toggling dark/light theme status.
 
 import { THEME_UPDATED_EVENT } from "@/constants/events";
 import { localService } from "@/services/local.service";

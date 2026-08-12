@@ -14,7 +14,6 @@ type InfoPropsType = {
 export const MovieInfo = ({ title, overview, genreIds, genres }: InfoPropsType) => {
     return (
         <div className="flex flex-col gap-1.5 w-full m-0 p-0">
-            {/* Title */}
             <h3
                 className="font-bold text-sm text-gray-900 dark:text-gray-100 uppercase tracking-tight line-clamp-1 leading-tight text-left"
                 title={title}
@@ -22,10 +21,8 @@ export const MovieInfo = ({ title, overview, genreIds, genres }: InfoPropsType) 
                 {title}
             </h3>
 
-            {/* Genres */}
             <GenresList genreIds={genreIds} genres={genres} maxItems={2} />
 
-            {/* Description */}
             <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 italic text-left">
                 {overview || "Description missing."}
             </p>

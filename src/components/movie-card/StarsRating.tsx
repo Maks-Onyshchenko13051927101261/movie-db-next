@@ -6,7 +6,6 @@ type RatingPropsType = {
 };
 
 export const StarsRating = ({ rating }: RatingPropsType) => {
-    // TMDB gives a rating from 0 to 10, translated into a 5-star system
     const starsCount = Math.round(rating / 2);
     const formattedRating = rating ? rating.toFixed(1) : "N/A";
 

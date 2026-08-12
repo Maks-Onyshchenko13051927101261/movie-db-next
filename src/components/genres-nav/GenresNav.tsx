@@ -5,15 +5,14 @@
 import { IGenre } from "@/models/IGenreModel";
 import Link from "next/link";
 
-type GenresListProps = {
+type GenresNavProps = {
     genres: IGenre[];
     activeGenreId?: string;
 };
 
-export const GenresList = ({ genres, activeGenreId }: GenresListProps) => {
+export const GenresNav = ({ genres, activeGenreId }: GenresNavProps) => {
     return (
         <nav className="flex flex-wrap gap-2 py-3 justify-center" aria-label="Genre discovery">
-            {/* "All" button to reset genre filter */}
             <Link
                 href="/?page=1"
                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 whitespace-nowrap ${
@@ -46,4 +45,4 @@ export const GenresList = ({ genres, activeGenreId }: GenresListProps) => {
     );
 };
 
-export default GenresList;
+export default GenresNav;

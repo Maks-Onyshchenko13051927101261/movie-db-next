@@ -1,5 +1,7 @@
 "use client";
 
+// Initializations for switching between dark/light theme.
+
 import { localService } from "@/services/local.service";
 import { useEffect } from "react";
 

@@ -1,4 +1,8 @@
-// descriptions
+// @file Favorites Page
+// @module app/(public)/movies/favorites/page
+// Client-side dynamic grid page that displays user-curated favorite movies.
+// Synchronizes with local storage context to persist user preferences across browser sessions
+// and provides state-driven favorite removals.
 
 import FavoritesMovies from "@/components/favorites-movies/FavoritesMovies";
 import { Metadata } from "next";

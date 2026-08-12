@@ -1,4 +1,7 @@
-// src/app/(public)/favorites/layout.tsx
+// @file Favorites View Layout
+// @module app/favorites/layout
+// Layout wrapper specifically tailored for user bookmark management.
+// Provides structural alignment for personal curated lists and action toolbars.
 
 import type { Metadata } from "next";
 

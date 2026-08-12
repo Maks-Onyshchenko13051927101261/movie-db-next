@@ -1,7 +1,7 @@
 // Detailed movie view component utilizing central TMDB image configuration.
 
 import { IMovieDetailsModel } from "@/models/IMovieDetailsModel";
-import { imageUrl } from "@/services/api.service"; // підключи твій шлях до файлу з axios
+import { imageUrl } from "@/services/api.service";
 import Image from "next/image";
 import FavoriteButton from "../movie-card/FavoriteButton";
 import StarsRating from "../movie-card/StarsRating";

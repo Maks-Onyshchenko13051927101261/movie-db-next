@@ -1,3 +1,6 @@
+// A UI component that renders individual genre badges and category tag lists.
+// Maps TMDB genre IDs to human-readable labels with direct filtering links.
+
 import { IGenre } from "@/models/IGenreModel";
 import Link from "next/link";
 

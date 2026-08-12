@@ -1,4 +1,8 @@
-// descriptions
+// @file Movie Details Page
+// @module app/(public)/movies/[id]/page
+// Dynamic route component for displaying comprehensive information about a single movie.
+// Fetches targeted movie metadata by ID, including poster backdrops, detailed overviews,
+// genres, ratings, and runtime specifications.
 
 import MovieDetails from "@/components/movie-details/MovieDetails";
 import { movieService } from "@/services/movie.service";

@@ -17,10 +17,8 @@ export const MovieListCard = ({ movie }: MoviePropsType) => {
 
     return (
         <div className="relative group w-full bg-white dark:bg-gray-800/90 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 border border-gray-100 dark:border-gray-700/60 flex flex-col h-full overflow-hidden">
-            {/* Client favorite button */}
             <FavoriteButton movie={movie} />
 
-            {/* Link to movie details */}
             <Link
                 href={`/movies/${id}`}
                 className="block overflow-hidden relative group-hover:opacity-95 transition-opacity"
@@ -28,9 +26,8 @@ export const MovieListCard = ({ movie }: MoviePropsType) => {
                 <PosterPreview path={poster_path} alt={title} />
             </Link>
 
-            {/* Текстовий блок: Чіткий рамковий відступ (16px зліва, справа, знизу) */}
-            <div className="w-full px-4 pb-4 pt-2 flex flex-col justify-between flex-1 gap-2 box-border">
-                <div className="flex flex-col gap-2 w-full">
+            <div className="p-4 flex flex-col justify-between flex-1 gap-2">
+                <div className="flex flex-col gap-2">
                     <StarsRating rating={vote_average} />
                     <MovieInfo title={title} overview={overview} genreIds={genre_ids} />
                 </div>

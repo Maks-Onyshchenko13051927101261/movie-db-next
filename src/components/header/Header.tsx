@@ -3,7 +3,7 @@
 
 import { IGenre } from "@/models/IGenreModel";
 import Link from "next/link";
-import GenresList from "../genres-list/GenresList";
+import { GenresNav } from "../genres-nav/GenresNav";
 import SearchForm from "../search-form/SearchForm";
 import UserInfo from "../user-info/UserInfo";
 import FavoritesBadge from "./FavoritesBadge";
@@ -44,10 +44,10 @@ export const Header = ({ genres = [], activeGenreId }: HeaderProps) => {
                 <SearchForm />
             </div>
 
-            {/* GenresList (Server) */}
+            {/* GenresNav (Server) */}
             {genres.length > 0 && (
                 <div className="border-t border-gray-100 dark:border-gray-800/60 bg-gray-50/50 dark:bg-gray-950/40 px-4 py-1.5 overflow-x-auto no-scrollbar">
-                    <GenresList genres={genres} activeGenreId={activeGenreId} />
+                    <GenresNav genres={genres} activeGenreId={activeGenreId} />
                 </div>
             )}
         </header>
