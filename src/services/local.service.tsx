@@ -5,6 +5,7 @@ import { IMovieModel } from "@/models/IMovieModel";
 
 const FAVORITES_KEY = "favorites";
 const USER_KEY = "user";
+const THEME_KEY = "theme";
 
 export const localService = {
     getFavorites: (): IMovieModel[] => JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]"),
@@ -31,9 +32,15 @@ export const localService = {
         localService.setFavorites(favorites);
     },
 
-    getUser: () => localStorage.getItem(USER_KEY),
+    getUser: (): string | null => localStorage.getItem(USER_KEY),
 
-    setUser: (user: string) => localStorage.setItem(USER_KEY, user),
+    setUser: (user: string): void => {
+        localStorage.setItem(USER_KEY, user);
+    },
+
+    getTheme: (): string | null => localStorage.getItem(THEME_KEY),
+
+    setTheme: (theme: "light" | "dark"): void => localStorage.setItem(THEME_KEY, theme),
 
     clearAll: () => {
         localStorage.removeItem(USER_KEY);

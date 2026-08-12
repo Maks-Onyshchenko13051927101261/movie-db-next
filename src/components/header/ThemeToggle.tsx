@@ -3,6 +3,7 @@
 "use client";
 
 import { THEME_UPDATED_EVENT } from "@/constants/events";
+import { localService } from "@/services/local.service";
 import { useSyncExternalStore } from "react";
 
 const subscribe = (callback: () => void) => {
@@ -11,7 +12,7 @@ const subscribe = (callback: () => void) => {
 };
 
 const getSnapshot = () => {
-    const saved = localStorage.getItem("theme");
+    const saved = localService.getTheme() ?? "";
     if (saved) return saved === "dark";
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
 };
@@ -23,7 +24,7 @@ const ThemeToggle = () => {
 
     const toggleTheme = () => {
         const nextState = !isDark;
-        localStorage.setItem("theme", nextState ? "dark" : "light");
+        localService.setTheme(nextState ? "dark" : "light");
         document.documentElement.classList.toggle("dark", nextState);
         window.dispatchEvent(new Event(THEME_UPDATED_EVENT));
     };

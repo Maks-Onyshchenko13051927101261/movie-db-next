@@ -4,18 +4,16 @@
 // users to edit and persist their display name using
 // React Hook Form, Joi validation and localStorage.
 
-// Client component for managing user profile name with inline editing and persistence.
-
 import { USER_UPDATED_EVENT } from "@/constants/events";
+import { localService } from "@/services/local.service";
 import { useState, useSyncExternalStore } from "react";
 
-// 🔄 Синхронізація з localStorage
 const subscribe = (callback: () => void) => {
     window.addEventListener(USER_UPDATED_EVENT, callback);
     return () => window.removeEventListener(USER_UPDATED_EVENT, callback);
 };
 
-const getSnapshot = () => localStorage.getItem("userName") || "";
+const getSnapshot = () => localService.getUser() ?? "";
 const getServerSnapshot = () => "";
 
 export const UserInfo = () => {
@@ -23,16 +21,14 @@ export const UserInfo = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState("");
 
-    // При відкритті редагування підставляємо поточне ім'я
     const handleStartEdit = () => {
         setInputValue(savedName);
         setIsEditing(true);
     };
 
-    // Збереження та блокування поля
     const handleSave = () => {
         const trimmed = inputValue.trim();
-        localStorage.setItem("userName", trimmed);
+        localService.setUser(trimmed);
         window.dispatchEvent(new Event(USER_UPDATED_EVENT));
         setIsEditing(false);
     };
@@ -44,13 +40,11 @@ export const UserInfo = () => {
 
     return (
         <div className="flex items-center gap-2">
-            {/* Аватарка-заглушка */}
             <div className="w-8 h-8 rounded-full bg-orange-500/20 text-orange-500 font-bold flex items-center justify-center text-xs border border-orange-500/30 shrink-0">
                 {savedName ? savedName[0].toUpperCase() : "👤"}
             </div>
 
             {isEditing ? (
-                /* ✏️ Стан редагування */
                 <div className="flex items-center gap-1.5">
                     <input
                         type="text"
@@ -70,7 +64,6 @@ export const UserInfo = () => {
                     </button>
                 </div>
             ) : (
-                /* 🔒 Підтверджений/Заблокований стан */
                 <div
                     onClick={handleStartEdit}
                     className="flex items-center gap-1.5 group cursor-pointer py-1 px-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/60 transition-colors"
