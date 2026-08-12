@@ -22,10 +22,6 @@ export const localService = {
         window.dispatchEvent(new Event(FAVORITES_UPDATED_EVENT));
     },
 
-    isFavorite: (id: number) => {
-        return localService.getFavorites().some((movie) => movie.id === id);
-    },
-
     addFavorite: (movie: IMovieModel) => {
         const favorites = localService.getFavorites();
 
