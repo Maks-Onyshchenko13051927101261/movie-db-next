@@ -1,5 +1,4 @@
 // Client component for toggling dark/light theme status.
-
 "use client";
 
 import { THEME_UPDATED_EVENT } from "@/constants/events";
@@ -8,25 +7,24 @@ import { useSyncExternalStore } from "react";
 
 const subscribe = (callback: () => void) => {
     window.addEventListener(THEME_UPDATED_EVENT, callback);
-    return () => window.removeEventListener(THEME_UPDATED_EVENT, callback);
+    window.addEventListener("storage", callback);
+
+    return () => {
+        window.removeEventListener(THEME_UPDATED_EVENT, callback);
+        window.removeEventListener("storage", callback);
+    };
 };
 
-const getSnapshot = () => {
-    const saved = localService.getTheme() ?? "";
-    if (saved) return saved === "dark";
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-};
+const getSnapshot = () => localService.getTheme() || "dark";
+const getServerSnapshot = () => "dark";
 
-const getServerSnapshot = () => false;
-
-const ThemeToggle = () => {
-    const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+export const ThemeToggle = () => {
+    const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+    const isDark = theme === "dark";
 
     const toggleTheme = () => {
-        const nextState = !isDark;
-        localService.setTheme(nextState ? "dark" : "light");
-        document.documentElement.classList.toggle("dark", nextState);
-        window.dispatchEvent(new Event(THEME_UPDATED_EVENT));
+        const nextTheme = isDark ? "light" : "dark";
+        localService.setTheme(nextTheme);
     };
 
     return (
