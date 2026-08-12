@@ -8,11 +8,14 @@ type Props = {
     error?: string | null;
 };
 
-const MoviesListCards = ({ movies, error }: Props) => {
+export const MoviesListCards = ({ movies, error }: Props) => {
     if (error) {
         return (
-            <div className="flex justify-center items-center min-h-[300px]">
-                <p className="text-red-500 font-medium bg-red-50 dark:bg-red-950/30 px-4 py-2 rounded-lg border border-red-200 dark:border-red-800">
+            <div className="flex flex-col items-center justify-center min-h-[350px] gap-3 text-center px-4">
+                <div className="w-12 h-12 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-xl font-bold">
+                    ⚠️
+                </div>
+                <p className="text-red-500 font-medium bg-red-500/10 px-4 py-2 rounded-xl border border-red-500/20 max-w-md text-sm">
                     {error}
                 </p>
             </div>
@@ -21,17 +24,22 @@ const MoviesListCards = ({ movies, error }: Props) => {
 
     if (!movies || movies.length === 0) {
         return (
-            <div className="flex justify-center items-center min-h-[300px]">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">No movies found.</p>
+            <div className="flex flex-col items-center justify-center min-h-[350px] gap-2 text-center px-4">
+                <span className="text-4xl opacity-60">🎬</span>
+                <p className="text-gray-500 dark:text-gray-400 font-medium text-base">
+                    Нічого не знайдено.
+                </p>
+                <p className="text-xs text-gray-400 dark:text-gray-500"></p>
             </div>
         );
     }
 
     return (
-        // Tailwind Grid: from mobile to desktop
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 py-6 w-full">
             {movies.map((movie) => (
-                <MovieListCard key={movie.id} movie={movie} />
+                <div key={movie.id} className="flex justify-center w-full">
+                    <MovieListCard movie={movie} />
+                </div>
             ))}
         </div>
     );

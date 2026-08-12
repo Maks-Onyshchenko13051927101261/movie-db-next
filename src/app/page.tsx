@@ -15,7 +15,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     const currentPage = Number(page ?? 1);
 
     return (
-        <main className="max-w-7xl mx-auto px-4 py-6 flex flex-col gap-8 min-h-[calc(100vh-140px)]">
+        <main>
             <MoviesList page={currentPage} query={query} genre={genre} />
 
             <Pagination totalPages={500} currentPage={currentPage} query={query} genre={genre} />
