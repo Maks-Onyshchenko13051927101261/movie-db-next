@@ -1,25 +1,31 @@
 "use client";
 
-// Description: Small client-side badge displaying the active number of favorite movies
-//  from localStorage.
+// Description: Small client-side badge displaying the active number of favorite movies from localStorage.
 
+import { FAVORITES_UPDATED_EVENT } from "@/constants/events";
 import { localService } from "@/services/local.service";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const SERVER_SNAPSHOT = "[]";
+
+const subscribe = (callback: () => void) => {
+    window.addEventListener(FAVORITES_UPDATED_EVENT, callback);
+    window.addEventListener("storage", callback);
+
+    return () => {
+        window.removeEventListener(FAVORITES_UPDATED_EVENT, callback);
+        window.removeEventListener("storage", callback);
+    };
+};
+
+const getSnapshot = () => localService.getFavoritesSnapshot();
+const getServerSnapshot = () => SERVER_SNAPSHOT;
 
 export const FavoritesBadge = () => {
-    const [count, setCount] = useState(0);
+    const favoritesRaw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-    useEffect(() => {
-        const updateCount = () => {
-            const favs = localService.getFavorites();
-            setCount(favs.length);
-        };
-
-        updateCount();
-        window.addEventListener("storage", updateCount);
-        return () => window.removeEventListener("storage", updateCount);
-    }, []);
+    const count = JSON.parse(favoritesRaw).length;
 
     return (
         <Link
