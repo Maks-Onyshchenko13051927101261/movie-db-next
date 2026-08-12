@@ -30,34 +30,62 @@ Data Source: TMDB API v3
 Icons & Visuals: Native Unicode & Next.js Image Optimization
 
 📐 Project Structure & Optimization
-Plaintext
-├── app/
-│ ├── layout.tsx # Root layout with global metadata & theme setup
-│ ├── page.tsx # Main server page (Movie Grid, Search & Pagination)
-│ ├── movies/
-│ │ ├── [id]/
-│ │ │ └── page.tsx # Dynamic server movie detail page with metadata
-│ │ └── favorites/
-│ │ └── page.tsx # Client page for user favorites list
 ├── src/
-│ ├── components/
-│ │ ├── header/ # Server Header housing client interactive islands
-│ │ │ ├── Header.tsx # Server Component
-│ │ │ ├── ThemeToggle.tsx # Client Component Island
-│ │ │ └── FavoritesBadge.tsx # Client Component Island
-│ │ ├── movies-list/ # Grid, Cards & Rating components
-│ │ │ ├── MoviesListCards.tsx
-│ │ │ ├── MovieListCard.tsx
-│ │ │ └── FavoriteButton.tsx # Client Component Island
-│ │ ├── search/ # Client Search form with URL sync
-│ │ ├── user-info/ # Client Profile manager (RHF + Joi)
-│ │ ├── genres-list/ # Genres scrollbar navigation
-│ │ └── pagination/ # Smooth scrolling pagination control
-│ ├── services/
-│ │ ├── movie.service.ts # TMDB API service layer
-│ │ └── local.service.ts # LocalStorage abstraction wrapper
-│ ├── models/ # TypeScript interfaces & types
-│ └── validator/ # Joi validation schemas
+│ ├── app/ # Next.js App Router Structure
+│ │ ├── (public)/
+│ │ │ └── movies/
+│ │ │ └── [id]/
+│ │ │ ├── layout.tsx # Metadata layout for movie details
+│ │ │ └── page.tsx # Dynamic server-rendered details page
+│ │ ├── favorites/
+│ │ │ ├── layout.tsx # Metadata layout for favorites page
+│ │ │ └── page.tsx # Client-side user saved movies view
+│ │ ├── favicon.ico
+│ │ ├── globals.css # Tailwind CSS global import setup
+│ │ ├── layout.tsx # Master root layout with Theme & Header
+│ │ ├── loading.tsx # Dynamic route loading fallback skeleton
+│ │ └── page.tsx # Main server landing page (Catalog Grid)
+│ ├── components/ # Modular UI Component Architecture
+│ │ ├── favorites-movies/
+│ │ │ └── FavoritesMovies.tsx # Saved movies list container
+│ │ ├── genres-nav/
+│ │ │ └── GenresNav.tsx # Interactive genre filter pills bar
+│ │ ├── header/
+│ │ │ ├── FavoritesBadge.tsx # Dynamic LocalStorage bookmark counter
+│ │ │ ├── Header.tsx # Main server layout navigation bar
+│ │ │ ├── ThemeInitializer.tsx # Anti-flicker theme script injection
+│ │ │ └── ThemeToggle.tsx # Dark/Light mode theme switcher button
+│ │ ├── movie-card/
+│ │ │ ├── FavoriteButton.tsx # Interactive LocalStorage favorite toggle
+│ │ │ ├── GenreBadge.tsx # Category tag pill & TMDB map
+│ │ │ ├── MovieInfo.tsx # Movie card textual metadata wrapper
+│ │ │ ├── MovieListCard.tsx # Single catalog movie poster card
+│ │ │ ├── PosterPreview.tsx # Optimized Next.js image poster wrapper
+│ │ │ └── StarsRating.tsx # Rating visualization star icons
+│ │ ├── movie-details/
+│ │ │ └── MovieDetails.tsx # Comprehensive movie info presentation
+│ │ ├── movies-list/
+│ │ │ ├── MoviesList.tsx # Movie fetcher wrapper
+│ │ │ └── MoviesListCards.tsx # Grid layout renderer for movie cards
+│ │ ├── pagination/
+│ │ │ └── Pagination.tsx # URL-synchronized page navigation bar
+│ │ ├── search-form/
+│ │ │ └── SearchForm.tsx # Dynamic router search input form
+│ │ └── user-info/
+│ │ └── UserInfo.tsx # Profile drawer dialog wrapper (RHF + Joi)
+│ ├── constants/
+│ │ └── events.tsx # Custom application event key constants
+│ ├── models/ # TypeScript Interface Contract Specifications
+│ │ ├── IGenreModel.tsx # Genre interface contract
+│ │ ├── IMovieDetailsModel.tsx # Detailed movie schema specification
+│ │ ├── IMovieModel.tsx # Primary catalog movie data interface
+│ │ └── IResponseModel.tsx # Paginated TMDB API response wrapper
+│ ├── services/ # Architectural Layer Abstractions
+│ │ ├── api.service.tsx # Central Axios HTTP client configuration
+│ │ ├── local.service.tsx # Type-safe LocalStorage helper abstraction
+│ │ └── movie.service.tsx # TMDB endpoints API client implementation
+│ └── validator/
+│ └── user.validator.tsx # Joi schema validation rules for forms
 ⚙️ Getting Started
 
 1. Prerequisites
