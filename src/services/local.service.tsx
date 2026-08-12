@@ -50,6 +50,13 @@ export const localService = {
 
     setTheme: (theme: "light" | "dark"): void => {
         localStorage.setItem(THEME_KEY, theme);
+        if (typeof window !== "undefined") {
+            if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        }
         window.dispatchEvent(new Event(THEME_UPDATED_EVENT));
     },
 
