@@ -1,35 +1,37 @@
+// Client component for toggling dark/light theme status.
+
 "use client";
 
-// Description: Client component for toggling dark/light theme status.
+import { THEME_UPDATED_EVENT } from "@/constants/events";
+import { useSyncExternalStore } from "react";
 
-import { useEffect, useState } from "react";
+const subscribe = (callback: () => void) => {
+    window.addEventListener(THEME_UPDATED_EVENT, callback);
+    return () => window.removeEventListener(THEME_UPDATED_EVENT, callback);
+};
 
-const getInitialTheme = () => {
-    if (typeof window === "undefined") {
-        return false;
-    }
-
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme) {
-        return savedTheme === "dark";
-    }
-
+const getSnapshot = () => {
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved === "dark";
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
 };
 
-const ThemeToggle = () => {
-    const [isDark, setIsDark] = useState(getInitialTheme);
+const getServerSnapshot = () => false;
 
-    useEffect(() => {
-        document.documentElement.classList.toggle("dark", isDark);
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-    }, [isDark]);
+const ThemeToggle = () => {
+    const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+    const toggleTheme = () => {
+        const nextState = !isDark;
+        localStorage.setItem("theme", nextState ? "dark" : "light");
+        document.documentElement.classList.toggle("dark", nextState);
+        window.dispatchEvent(new Event(THEME_UPDATED_EVENT));
+    };
 
     return (
         <button
             type="button"
-            onClick={() => setIsDark((prev) => !prev)}
+            onClick={toggleTheme}
             className="text-xl transition-transform hover:scale-110 active:rotate-12 outline-none cursor-pointer p-1"
             title="Toggle Dark Mode"
         >

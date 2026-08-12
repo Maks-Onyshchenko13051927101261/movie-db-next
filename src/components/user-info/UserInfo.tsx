@@ -4,98 +4,90 @@
 // users to edit and persist their display name using
 // React Hook Form, Joi validation and localStorage.
 
-import { localService } from "@/services/local.service";
-import { userValidator } from "@/validator/user.validator";
-import { joiResolver } from "@hookform/resolvers/joi";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+// Client component for managing user profile name with inline editing and persistence.
 
-type FormData = {
-    username: string;
+import { USER_UPDATED_EVENT } from "@/constants/events";
+import { useState, useSyncExternalStore } from "react";
+
+// 🔄 Синхронізація з localStorage
+const subscribe = (callback: () => void) => {
+    window.addEventListener(USER_UPDATED_EVENT, callback);
+    return () => window.removeEventListener(USER_UPDATED_EVENT, callback);
 };
 
-const UserInfo = () => {
-    const DEFAULT_USER = "John Doe";
+const getSnapshot = () => localStorage.getItem("userName") || "";
+const getServerSnapshot = () => "";
 
-    const getInitialUser = () => {
-        if (typeof window === "undefined") {
-            return DEFAULT_USER;
-        }
+export const UserInfo = () => {
+    const savedName = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+    const [isEditing, setIsEditing] = useState(false);
+    const [inputValue, setInputValue] = useState("");
 
-        return localService.getUser() ?? DEFAULT_USER;
+    // При відкритті редагування підставляємо поточне ім'я
+    const handleStartEdit = () => {
+        setInputValue(savedName);
+        setIsEditing(true);
     };
 
-    const [userName, setUserName] = useState(getInitialUser);
-    const [isEditing, setIsEditing] = useState(false);
-
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm<FormData>({
-        resolver: joiResolver(userValidator),
-        defaultValues: {
-            username: "",
-        },
-    });
-
-    const onSubmit = ({ username }: FormData) => {
-        const trimmed = username.trim();
-
-        setUserName(trimmed);
-        localService.setUser(trimmed);
+    // Збереження та блокування поля
+    const handleSave = () => {
+        const trimmed = inputValue.trim();
+        localStorage.setItem("userName", trimmed);
+        window.dispatchEvent(new Event(USER_UPDATED_EVENT));
         setIsEditing(false);
     };
 
-    if (isEditing) {
-        return (
-            <form onSubmit={handleSubmit(onSubmit)} className="flex items-center gap-2 relative">
-                <div className="relative flex flex-col">
-                    <input
-                        {...register("username")}
-                        autoFocus
-                        placeholder="Enter name..."
-                        className={`w-36 px-3 py-1.5 text-xs font-medium rounded-xl border outline-none transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ${
-                            errors.username
-                                ? "border-red-500 focus:ring-2 focus:ring-red-500/20"
-                                : "border-orange-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
-                        }`}
-                    />
-
-                    {errors.username && (
-                        <span className="absolute top-full left-0 mt-1 z-30 text-[10px] font-bold text-red-500 bg-red-50 dark:bg-red-950/80 border border-red-200 dark:border-red-800/50 px-2 py-0.5 rounded-md shadow-md whitespace-nowrap">
-                            {errors.username.message}
-                        </span>
-                    )}
-                </div>
-
-                <button
-                    type="submit"
-                    className="px-3.5 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-xs font-bold transition-all shadow-md shadow-orange-500/20 cursor-pointer"
-                >
-                    OK
-                </button>
-            </form>
-        );
-    }
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") handleSave();
+        if (e.key === "Escape") setIsEditing(false);
+    };
 
     return (
-        <div
-            onClick={() => {
-                reset({ username: userName });
-                setIsEditing(true);
-            }}
-            className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-gray-100/80 dark:bg-gray-800/80 hover:bg-orange-50 dark:hover:bg-gray-700/80 border border-gray-200 dark:border-gray-700/80 cursor-pointer transition-all duration-200 group select-none shadow-sm"
-            title="Click to edit profile name"
-        >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white text-xs font-black uppercase shadow-sm group-hover:scale-105 transition-transform duration-200">
-                {userName.slice(0, 2)}
+        <div className="flex items-center gap-2">
+            {/* Аватарка-заглушка */}
+            <div className="w-8 h-8 rounded-full bg-orange-500/20 text-orange-500 font-bold flex items-center justify-center text-xs border border-orange-500/30 shrink-0">
+                {savedName ? savedName[0].toUpperCase() : "👤"}
             </div>
 
-            <span className="text-xs font-bold text-gray-700 dark:text-gray-200 group-hover:text-orange-500 transition-colors">
-                {userName}
-            </span>
+            {isEditing ? (
+                /* ✏️ Стан редагування */
+                <div className="flex items-center gap-1.5">
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder="Ваше ім'я..."
+                        autoFocus
+                        className="w-28 px-2 py-1 text-xs font-medium rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-orange-500/50 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                    />
+                    <button
+                        type="button"
+                        onClick={handleSave}
+                        className="px-2 py-1 text-xs font-bold text-white bg-orange-500 rounded-lg hover:bg-orange-600 transition-colors cursor-pointer"
+                    >
+                        ✓
+                    </button>
+                </div>
+            ) : (
+                /* 🔒 Підтверджений/Заблокований стан */
+                <div
+                    onClick={handleStartEdit}
+                    className="flex items-center gap-1.5 group cursor-pointer py-1 px-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/60 transition-colors"
+                    title="Натисніть, щоб змінити ім'я"
+                >
+                    <span className="text-xs font-bold text-gray-700 dark:text-gray-200 group-hover:text-orange-500 transition-colors">
+                        {savedName || (
+                            <span className="text-gray-400 dark:text-gray-500 italic font-normal">
+                                Enter your name...
+                            </span>
+                        )}
+                    </span>
+                    <span className="text-[10px] text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        ✏️
+                    </span>
+                </div>
+            )}
         </div>
     );
 };

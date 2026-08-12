@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const baseUrl = process.env.TMDB_BASE_URL;
-const imageUrl = process.env.TMDB_IMAGE_URL;
+const imageUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_URL;
 
 const axiosInstance = axios.create({
     baseURL: baseUrl,
