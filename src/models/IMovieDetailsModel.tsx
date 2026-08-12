@@ -1,6 +1,7 @@
 import { IGenre } from "./IGenreModel";
+import { IMovieModel } from "./IMovieModel";
 
-export interface IMovieDetailsModel {
+export interface IMovieDetailsModel extends IMovieModel {
     genres: IGenre[];
     title: string;
     poster_path: string;
@@ -14,5 +15,4 @@ export interface IMovieDetailsModel {
     homepage?: string;
     vote_average: number;
     overview: string;
-    genre_ids?: number[];
 }
