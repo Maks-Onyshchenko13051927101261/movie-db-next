@@ -88,33 +88,68 @@ Icons & Visuals: Native Unicode & Next.js Image Optimization
 │ └── user.validator.tsx # Joi schema validation rules for forms
 ⚙️ Getting Started
 
-1. Prerequisites
-   Node.js: v18.x or higher
+## 1. Prerequisites
 
-Package Manager: npm / yarn / pnpm
+- Node.js v18.x or higher
+- npm / yarn / pnpm
 
-2. Environment Setup
-   Create a .env.local file in the root directory and insert your TMDB API Bearer Token / API Key:
+---
 
-Code snippet
-MDB_TOKEN=your_tmdb_bearer_token_here 3. Installation
+## 2. Environment Setup
+
+Create a `.env.local` file in the project root.
+
+You can use the provided `.env.example` as a template:
+
+```env
+TMDB_BASE_URL=https://api.themoviedb.org/3
+NEXT_PUBLIC_TMDB_IMAGE_URL=https://image.tmdb.org/t/p/w500
+TMDB_ACCESS_TOKEN=your_tmdb_bearer_token_here
+```
+
+> **Note:** Never commit your `.env.local` file or expose your TMDB Access Token.
+
+---
+
+## 3. Installation
+
 Clone the repository and install dependencies:
 
-Bash
+```bash
 git clone https://github.com/your-username/moviestorm.git
 cd moviestorm
-npm install 4. Development Server
-Run the local development server:
+npm install
+```
 
-Bash
+---
+
+## 4. Development Server
+
+Run the development server:
+
+```bash
 npm run dev
-Open http://localhost:3000 in your browser to view the application.
+```
 
-5. Production Build
-   Verify standard TypeScript checks and build for production:
+Open your browser:
 
-Bash
+```
+http://localhost:3000
+```
+
+---
+
+## 5. Production Build
+
+Verify the production build:
+
+```bash
 npm run build
 npm run start
-📝 License
+```
+
+---
+
+## 📝 License
+
 This project was built for educational purposes as part of the Web Development assignment curriculum.

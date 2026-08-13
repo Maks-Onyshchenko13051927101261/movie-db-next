@@ -3,6 +3,7 @@
 
 import { IGenre } from "@/models/IGenreModel";
 import Link from "next/link";
+import { Suspense } from "react";
 import { GenresNav } from "../genres-nav/GenresNav";
 import SearchForm from "../search-form/SearchForm";
 import UserInfo from "../user-info/UserInfo";
@@ -28,7 +29,9 @@ export const Header = ({ genres = [], activeGenreId }: HeaderProps) => {
 
                 {/* SearchForm (Client Island) */}
                 <div className="flex-1 max-w-md hidden sm:flex items-center justify-center">
-                    <SearchForm />
+                    <Suspense fallback={null}>
+                        <SearchForm />
+                    </Suspense>
                 </div>
 
                 {/* Right Nav (Client Islands) */}
@@ -41,7 +44,9 @@ export const Header = ({ genres = [], activeGenreId }: HeaderProps) => {
 
             {/* Mobile Search */}
             <div className="sm:hidden px-4 pb-3">
-                <SearchForm />
+                <Suspense fallback={null}>
+                    <SearchForm />
+                </Suspense>
             </div>
 
             {/* GenresNav (Server) */}
